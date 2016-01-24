@@ -26,7 +26,7 @@ function something1 () {
 // As that gets tedious, a small wrapper function `run()` has been added to the
 // pg object. The following function is functionally-equivalent to the above:
 function something2 () {
-    return pg.run(client => client.query("SELECT * FROM foo"))
+    return pg.run("postgres://...", client => client.query("SELECT * FROM foo"))
     .then(result => console.log(result))
     ;
 }
@@ -45,7 +45,11 @@ to `global.Promise`.
 
 Example:
 ```javascript
+// To Use default global.Promise
 const pg = require("pg.promised")(require("pg"));
+
+// To Use Bluebird
+const pg = require("pg.promised")(require("pg"), require("bluebird"));
 ```
 
 ## pg.promised
