@@ -1,0 +1,32 @@
+{
+  "name": "pg.promised",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+      "build": "babel src --out-dir dist",
+      "clean": "rm -rvf dist",
+      "prepublish": "npm run build"
+  },
+  "keywords": [],
+  "author": "Shawn Dellysse <sdellysse@gmail.com> (http://shawndellysse.com)",
+  "license": "ISC",
+  "dependencies": {
+    "phinally": "0.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "6.4.5",
+    "babel-plugin-syntax-function-bind": "6.3.13",
+    "babel-plugin-transform-function-bind": "6.3.13",
+    "babel-preset-es2015": "6.3.13"
+  },
+  "babel": {
+      "presets": [
+          "es2015"
+      ],
+      "plugins": [
+          "syntax-function-bind",
+          "transform-function-bind"
+      ]
+  }
+}
