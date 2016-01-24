@@ -3,7 +3,7 @@
 Wraps around a `pg` or `pg.native` instance and converts it to use Promises for
 asynchronous flow control instead of callbacks.
 
-## Quickstart:
+# Quickstart:
 ```javascript
 // pg.promised works with either `pg` or `pg-native`
 const pg = require("pg.promised")(require("pg-native"));
@@ -32,9 +32,9 @@ function something2 () {
 }
 ```
 
-## Documentation:
+# Documentation:
 
-### wrap (default function exported)
+## wrap (default function exported)
 
     wrap(pg: (pg|pg-native), ?PromiseImpl: (Promise|Bluebird|...)): pg.promised
 
@@ -48,12 +48,12 @@ Example:
 const pg = require("pg.promised")(require("pg"));
 ```
 
-### pg.promised
+## pg.promised
 
 All methods an properties are inherited from the `pg` object given to `wrap`.
 The following changes have been made:
 
-### pg.promised .connect
+## pg.promised .connect
 
     pg.connect(...args): Promise<[ pg.promised.Client, done() ]>
 
@@ -82,7 +82,7 @@ pg.connect("postgres://...")
 ;
 ```
 
-### pg.promised .run
+## pg.promised .run
 
     pg.run(...args, cb: (Function<client: pg.promised.Client>: Promise)): Promise<(cb's return value)>
 
@@ -100,14 +100,14 @@ pg.run("postgres://...", client => client.query("SELECT * FROM foo"))
 ;
 ```
 
-### pg.promised.Client
+## pg.promised.Client
 
 This is a Promised-wrapped class equivalend to the Client class of the pg
 object passed to `wrap`. All methods and properties have been inherited from
-that class, any differences are marked in this section
+that class, any differences are marked in this section:
 
 
-### pg.promised.Client .query
+## pg.promised.Client .query
 
     client.query(...args): Promise<results>
 
@@ -116,7 +116,7 @@ the value returned in a Promise. Note that this means that you'll need to use
 a different function recevie an event emitter from this function, if you care to
 do so.
 
-### pg.promised.Client .queryEmitter
+## pg.promised.Client .queryEmitter
 
     client.query(...args): [node-postgres's result emitter]
 
@@ -124,3 +124,11 @@ No Promise-wrapping here, but it is needed since the original `pg` or
 `pg-native` modules have a Client object whose `query` method will return a
 specialized event emitter if the callback is omitted. Since the wrapped version
 of `query` removes this functionality, this brings it back.
+
+# Compared to pg-promise
+
+`pg.promised` is much lower-level than `pg-promise`. `pg.promised` is simply the
+smallest set of changes needed to have the excellent `node-postgres` library use
+Promises for flow control instead of callbacks. `pg-promise` is very
+full-featured and adds a lot to `node-postgres` but I wanted something much
+simpler.

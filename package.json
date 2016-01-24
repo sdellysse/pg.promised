@@ -10,9 +10,10 @@
   },
   "keywords": [],
   "author": "Shawn Dellysse <sdellysse@gmail.com> (http://shawndellysse.com)",
-  "license": "ISC",
+  "homepage": "https://github.com/shawndellysse/pg.promised",
+  "license": "MIT",
   "dependencies": {
-    "phinally": "0.0.1"
+    "phinally": "1.0.2"
   },
   "devDependencies": {
     "babel-cli": "6.4.5",
