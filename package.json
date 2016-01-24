@@ -1,12 +1,12 @@
 {
   "name": "pg.promised",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-      "build": "babel src --out-dir dist",
-      "clean": "rm -rvf dist",
-      "prepublish": "npm run build"
+    "build": "babel src --out-dir dist",
+    "clean": "rm -rvf dist",
+    "prepublish": "npm run build"
   },
   "keywords": [],
   "author": "Shawn Dellysse <sdellysse@gmail.com> (http://shawndellysse.com)",
@@ -21,12 +21,12 @@
     "babel-preset-es2015": "6.3.13"
   },
   "babel": {
-      "presets": [
-          "es2015"
-      ],
-      "plugins": [
-          "syntax-function-bind",
-          "transform-function-bind"
-      ]
+    "presets": [
+      "es2015"
+    ],
+    "plugins": [
+      "syntax-function-bind",
+      "transform-function-bind"
+    ]
   }
 }
