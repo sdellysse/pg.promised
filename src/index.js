@@ -19,6 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+const wrapClient = require("./wrap-client");
 const wrapPg = require("./wrap-pg");
 
 module.exports = function (pg, PromiseImpl) {
@@ -26,5 +27,8 @@ module.exports = function (pg, PromiseImpl) {
         PromiseImpl = global.Promise;
     }
 
-    return wrapPg(pg, PromiseImpl);
+    const pgp = wrapPg(pg, PromiseImpl);
+    pgp.Client = wrapClient(pg.Client, PromiseImpl);
+
+    return pgp;
 };

@@ -21,7 +21,6 @@
  */
 
 const phinally = require("phinally");
-const wrapClient = require("./wrap-client.js");
 
 module.exports = function (originalPg, PromiseImpl) {
     const pg = Object.create(originalPg);
@@ -53,5 +52,5 @@ module.exports = function (originalPg, PromiseImpl) {
         ;
     };
 
-    pg.Client = wrapClient(originalPg.Client, PromiseImpl);
+    return pg;
 };
