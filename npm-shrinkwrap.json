@@ -1,6 +1,6 @@
 {
   "name": "pg.promised",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "dependencies": {
     "amdefine": {
       "version": "1.0.0",
