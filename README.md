@@ -60,7 +60,7 @@ The following changes have been made:
 
 ## pg.promised .connect
 
-    pg.connect(...args): Promise<[ pg.promised.Client, done() ]>
+    pg.connect(...args): Promise<{ client: pg.promised.Client, done: done() }>
 
 `.connect` returns a promise instead of accepting a callback as it's final
 argument. All arguments to `.connect` are proxied to the `pg` object received by
