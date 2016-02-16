@@ -22,22 +22,22 @@
 
 const phinally = require("phinally");
 
-module.exports = function (originalPg, PromiseImpl) {
+module.exports = function (originalPg, Promise) {
     const pg = Object.create(originalPg);
 
     pg.connect = function (...args) {
-        return new PromiseImpl((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             originalPg.connect.call(this, ...args, (err, client, done) => {
                 if (err) {
                     return reject(err);
                 }
 
-                return resolve([ client, done ]);
+                return resolve({ client, done });
             });
         });
     };
 
-    pg.run = function () {
+    pg.using = function () {
         const connectArgs = [];
         for (let i = 0, l = (arguments.length - 1); i < l; i++) {
             connectArgs[i] = arguments[i];
@@ -45,8 +45,8 @@ module.exports = function (originalPg, PromiseImpl) {
         const promiseFactory = arguments[arguments.length - 1];
 
         return pg.connect(...connectArgs)
-        .then(([ client, done ]) => PromiseImpl.resolve()
-            .then(() => promiseFactory(client))
+        .then(({ client, done }) =>
+            Promise.resolve(promiseFactory(client))
             ::phinally(() => done())
         )
         ;

@@ -12,7 +12,7 @@ const pg = require("pg.promised")(require("pg-native"));
 // pg's docs.
 function something1 () {
     return pg.connect("postgres://...")
-    .then(([ client, done ]) => {
+    .then(({ client, done }) => {
         return client.query("SELECT * FROM foo")
         .then(result => {
             done();
@@ -23,10 +23,11 @@ function something1 () {
     ;
 }
 
-// As that gets tedious, a small wrapper function `run()` has been added to the
-// pg object. The following function is functionally-equivalent to the above:
+// As that gets tedious, a small wrapper function `using()` has been added to
+// the pg object. The following function is functionally-equivalent to the
+// above:
 function something2 () {
-    return pg.run("postgres://...", client => client.query("SELECT * FROM foo"))
+    return pg.using("postgres://...", client => client.query("SELECT * FROM foo"))
     .then(result => console.log(result))
     ;
 }
@@ -64,7 +65,7 @@ The following changes have been made:
 `.connect` returns a promise instead of accepting a callback as it's final
 argument. All arguments to `.connect` are proxied to the `pg` object received by
 `wrap`. Consult node-postgres for more information on those specifics. It
-returns a Promise that resolves to a two-item array, a `pg.promised.Client`
+returns a Promise that resolves to a two-item object, a `pg.promised.Client`
 instance and a `done` function. As per the node-postgres docs, you must call
 `done()` as soon as you're done with the connection for it to go back into the
 pool.
@@ -86,11 +87,11 @@ pg.connect("postgres://...")
 ;
 ```
 
-## pg.promised .run
+## pg.promised .using
 
-    pg.run(...args, cb: (Function<client: pg.promised.Client>: Promise)): Promise<(cb's return value)>
+    pg.using(...args, cb: (Function<client: pg.promised.Client>: Promise)): Promise<(cb's return value)>
 
-`.run` is a small helper that takes in everything a `.connect` call would but
+`.using` is a small helper that takes in everything a `.connect` call would but
 also accepts a final object, a callback that returns a promise. This callback
 receives the `client` instance and once the Promise returned by the callback
 resolves `done()` will automatically be called for that `client`. The Promise
