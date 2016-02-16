@@ -74,7 +74,7 @@ pool.
 Example:
 ```javascript
 pg.connect("postgres://...")
-.then(([ client, done ]) => {
+.then(({ client, done }) => {
     return client.query("SELECT * FROM foo")
     .then(results => {
         done();
